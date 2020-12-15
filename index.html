@@ -1,0 +1,506 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>PR&Aacute;CTICA 04: "CONVOLUCI&Oacute;N  Y CORRELACI&Oacute;N DE SE&Ntilde;ALES EN TIEMPO CONTINUO"</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-14"><meta name="DC.source" content="PRACTICA4_para_subir.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1><b>PR&Aacute;CTICA 04: "CONVOLUCI&Oacute;N  Y CORRELACI&Oacute;N DE SE&Ntilde;ALES EN TIEMPO CONTINUO"</b></h1><!--introduction--><p><b>INTEGRANTES:</b></p><div><ul><li>Basilio P&eacute;rez Neftali</li><li>Orozco Segovia Mikhael Imanol</li><li>Servin Zamora Alejandro</li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">OBJETIVOS:</a></li><li><a href="#2">INTRODUCCI&Oacute;N:</a></li><li><a href="#4">DESARROLLO:</a></li><li><a href="#5"><b>PUNTO #1</b></a></li><li><a href="#9"><b>PUNTO #2</b></a></li><li><a href="#14"><b>PUNTO #3</b></a></li><li><a href="#22"><b>PUNTO #4</b></a></li></ul></div><h2 id="1">OBJETIVOS:</h2><div><ul><li>Conocer m&eacute;todos b&aacute;sicos de integraci&oacute;n num&eacute;rica</li><li>Manipulaci&oacute;n de instrucciones en MATLAB</li><li>Simular convoluciones y correlaciones de se&ntilde;ales continuas</li></ul></div><h2 id="2">INTRODUCCI&Oacute;N:</h2><pre>Existen varios m&eacute;todos para la  soluci&oacute;n n&uacute;merica de integrales, se deja un reporte de algunos de ellos en el siguiente</pre><p><a href="https://drive.google.com/file/d/1_HiJInxs54B5xfKpJ1GF5CXDZpWak8gX/view?usp=sharing">enlace</a></p><h2 id="4">DESARROLLO:</h2><h2 id="5"><b>PUNTO #1</b></h2><pre>Realizar la convoluci&oacute;n de:</pre><p><img vspace="5" hspace="5" src="f(x)m.png" alt=""> </p><p>con la se&ntilde;al: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p><p><img src="PRACTICA4_para_subir_eq05664999207196913928.png" alt="$$g(t)=u(t)-u(t-1)$$"></p><p>El resultado anal&iacute;tico siguiente se obtuvo previamente en el problema 1 del PR04:</p><p><img vspace="5" hspace="5" src="convol.PNG" alt=""> </p><pre class="codeinput">clear <span class="string">all</span>
+syms <span class="string">t</span>
+f= @(t) (-t+1).*(t&gt;=0 &amp; t&lt;1) + (t-1).*(t&gt;=1 &amp; t&lt;=2);
+g = @(t) heaviside(t)-heaviside(t-1);
+figure (3)
+subplot(3,1,1)
+fplot(f,[-1,3],<span class="string">'r'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'f(t)'</span>)
+<span class="comment">%</span>
+ax=gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+<span class="comment">%</span>
+axis([-1 3 -.20 1.20]);
+subplot(3,1,2)
+fplot(g,[-0.25,1.25],<span class="string">'g'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'g(t)'</span>)
+<span class="comment">%</span>
+ax=gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+<span class="comment">%</span>
+axis([-1 1.5 -.20 1.2]);
+t1=0:0.01:1;
+t2=1:0.01:2;
+t3=2:0.01:3;
+subplot(3,1,3)
+plot(t1,-(t1.^2/2)+t1)
+hold <span class="string">on</span>
+plot(t2,(t2.^2)-3.*t2+5/2)
+plot(t3,-(t3.^2)/2+2.*t3-3/2)
+grid <span class="string">on</span>
+title(<span class="string">'f(t)*g(t)=h(t)'</span>)
+<span class="comment">%</span>
+ax=gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+<span class="comment">%</span>
+axis([-.50 3.6 -.25 .75]);
+<span class="comment">%</span>
+<span class="comment">% Si ejecutamos las siguientes instrucciones en el Command Window y el directorio de trabajo es el mismo donde se encuentra la funci&oacute;n convconm tendr&eacute;mos el siguiente resultado</span>
+f= @(t) (-t+1).*(t&gt;=0 &amp; t&lt;1) + (t-1).*(t&gt;=1 &amp; t&lt;=2);
+g = @(t) heaviside(t)-heaviside(t-1);
+convconm(f,g)
+<span class="comment">%</span>
+</pre><img vspace="5" hspace="5" src="PRACTICA4_para_subir_01.png" alt=""> <img vspace="5" hspace="5" src="PRACTICA4_para_subir_02.png" alt=""> <p>A continuaci&oacute;n se muestra la convoluci&oacute;n graficamente :</p><p><img vspace="5" hspace="5" src="matlab_gif.GIF" alt=""> </p><h2 id="9"><b>PUNTO #2</b></h2><p>Realizar la convoluci&oacute;n de:</p><p><img vspace="5" hspace="5" src="C221.PNG" alt=""> </p><p><img vspace="5" hspace="5" src="C222.PNG" alt=""> </p><p>El resultado anal&iacute;tico siguiente se obtuvo previamente en el problema 3 del PR04:</p><p><img vspace="5" hspace="5" src="C223.PNG" alt=""> </p><pre class="language-matlab">Codigo <span class="string">en</span> <span class="string">Matlab</span>
+x = @(t) (t).*(t&gt;=0 &amp; t&lt;=1) + (1).*(t&gt;1 &amp; t&lt;=2);
+h = @(t) (1).*(t&gt;=1 &amp; t&lt;=3);
+convconm(x,h)
+</pre><p><img vspace="5" hspace="5" src="gif2.GIF" alt=""> </p><h2 id="14"><b>PUNTO #3</b></h2><p>De la PR06 inciso E) nos pide la autocorrelaci&oacute;n de:</p><p><img src="PRACTICA4_para_subir_eq00486344250699229193.png" alt="$x(t)=u(t)-2u(t)-2u(t-3)+u(t-4)$"></p><p>El resultado analitico obtenido es:</p><p><img vspace="5" hspace="5" src="parametrizacionP06e.PNG" alt=""> </p><pre class="codeinput">clear <span class="string">all</span>
+figure (1)
+x=@(t)heaviside(-t)-2*heaviside(-t-3)+heaviside(-t-4);
+subplot(3,1,1)
+fplot(x,[-5,1],<span class="string">'b'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'x(t)'</span>)
+ax=gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+axis([-5 1 -1.5 2]);
+<span class="comment">%</span>
+h=@(t)heaviside(t)-2*heaviside(t-3)+heaviside(t-4);
+subplot(3,1,2)
+fplot(h,[-1,5],<span class="string">'r'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'h(t)'</span>)
+ax=gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+axis([-1 5 -1.5 2]);
+<span class="comment">%</span>
+t1=-4:01:-3;
+t2=-3:01:-2;
+t3=-2:01:-1;
+t4=-1:01:0;
+t5=0:01:1;
+t6=1:01:3;
+t7=3:01:4;
+subplot(3,1,3)
+plot(t1,-t1-4);
+hold <span class="string">on</span>
+plot(t2,t2+2);
+hold <span class="string">on</span>
+plot(t3,t3+2);
+hold <span class="string">on</span>
+plot(t4,3*(t4)+4);
+hold <span class="string">on</span>
+plot(t5,-3*(t5)+4);
+hold <span class="string">on</span>
+plot(t6,-t6+2);
+hold <span class="string">on</span>
+plot(t7,t7-4);
+grid <span class="string">on</span>
+title(<span class="string">'x(t)*h(t)'</span>)
+<span class="comment">%</span>
+ax=gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+</pre><img vspace="5" hspace="5" src="PRACTICA4_para_subir_03.png" alt=""> <p>Al ejecutar:</p><pre class="codeinput">  x=@(t)heaviside(-t)-2*heaviside(-t-3)+heaviside(-t-4);
+  h=@(t)heaviside(t)-2*heaviside(t-3)+heaviside(t-4);
+  convconm34(x,h)
+</pre><img vspace="5" hspace="5" src="PRACTICA4_para_subir_04.png" alt=""> <p>OBTENEMOS:</p><p><img vspace="5" hspace="5" src="matlabConE.gif" alt=""> </p><h2 id="22"><b>PUNTO #4</b></h2><p>De la PR06 inciso F) nos pide la correlaci&oacute;n de:</p><p><img src="PRACTICA4_para_subir_eq14159435080388853297.png" alt="$x_{0}=u(t)-2u(t-2)+u(t-4)$"></p><p><img src="PRACTICA4_para_subir_eq09113997729288150294.png" alt="$x_{1}=u(t)-2u(t-3)+u(t-4)$"></p><p>El resultado analitico obtenido es:</p><p><img vspace="5" hspace="5" src="parametrizacionP06f.PNG" alt=""> </p><pre class="codeinput">clear <span class="string">all</span>
+figure (2)
+x=@(t)heaviside(-t)-2*heaviside(-t-3)+heaviside(-t-4);
+subplot(3,1,1)
+fplot(x,[-5,1],<span class="string">'b'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'x(t)'</span>)
+ax=gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+axis([-5 1 -1.5 2]);
+<span class="comment">%</span>
+h=@(t)heaviside(t)-2*heaviside(t-2)+heaviside(t-4);
+subplot(3,1,2)
+fplot(h,[-1,5],<span class="string">'r'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'h(t)'</span>)
+ax=gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+axis([-1 5 -1.5 2]);
+<span class="comment">%</span>
+t1=-4:01:-3;
+t2=-3:01:-2;
+t3=-2:01:-1;
+t4=-1:01:0;
+t5=0:01:1;
+t6=1:01:2;
+t7=2:01:4;
+subplot(3,1,3)
+plot(t1,-t1-4)
+hold <span class="string">on</span>
+plot(t2,t2+2)
+hold <span class="string">on</span>
+plot(t3,3*(t3)+6)
+hold <span class="string">on</span>
+plot(t4,-t4+2);
+hold <span class="string">on</span>
+plot(t5,-3*(t5)+2)
+hold <span class="string">on</span>
+plot(t6,-t6)
+hold <span class="string">on</span>
+plot(t7,t7-4)
+hold <span class="string">on</span>
+title(<span class="string">'x(t)*h(t)'</span>)
+ax=gca;
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+</pre><img vspace="5" hspace="5" src="PRACTICA4_para_subir_05.png" alt=""> <p>Al ejecutar:</p><pre class="codeinput"> x=@(t)heaviside(-t)-2*heaviside(-t-3)+heaviside(-t-4);
+ h=@(t)heaviside(t)-2*heaviside(t-2)+heaviside(t-4);
+ convconm34(x,h)
+</pre><img vspace="5" hspace="5" src="PRACTICA4_para_subir_06.png" alt=""> <p>OBTENEMOS:</p><p><img vspace="5" hspace="5" src="matlabConF.GIF" alt=""> </p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% *PRÁCTICA 04: "CONVOLUCIÓN  Y CORRELACIÓN DE SEÑALES EN TIEMPO CONTINUO"*
+%
+% *INTEGRANTES:*
+%
+% * Basilio Pérez Neftali
+% * Orozco Segovia Mikhael Imanol
+% * Servin Zamora Alejandro
+%
+%% OBJETIVOS:
+% * Conocer métodos básicos de integración numérica
+% * Manipulación de instrucciones en MATLAB
+% * Simular convoluciones y correlaciones de señales continuas
+%% INTRODUCCIÓN:
+%
+%  Existen varios métodos para la  solución númerica de integrales, se deja un reporte de algunos de ellos en el siguiente 
+%%
+%
+% <https://drive.google.com/file/d/1_HiJInxs54B5xfKpJ1GF5CXDZpWak8gX/view?usp=sharing enlace>
+%
+%
+%% DESARROLLO:
+%
+%% *PUNTO #1*
+%  Realizar la convolución de:
+%
+% <<f(x)m.png>> 
+%
+% con la señal:
+%          
+%%
+% 
+% $$g(t)=u(t)-u(t-1)$$
+% 
+% El resultado analítico siguiente se obtuvo previamente en el problema 1 del PR04:
+%%
+% 
+% <<convol.PNG>>
+% 
+%
+%
+clear all
+syms t
+f= @(t) (-t+1).*(t>=0 & t<1) + (t-1).*(t>=1 & t<=2);
+g = @(t) heaviside(t)-heaviside(t-1);
+figure (3)
+subplot(3,1,1)
+fplot(f,[-1,3],'r')
+grid on
+title('f(t)')
+%
+ax=gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+%
+axis([-1 3 -.20 1.20]);
+subplot(3,1,2)
+fplot(g,[-0.25,1.25],'g')
+grid on
+title('g(t)')
+%
+ax=gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+%
+axis([-1 1.5 -.20 1.2]);
+t1=0:0.01:1;
+t2=1:0.01:2;
+t3=2:0.01:3;
+subplot(3,1,3)
+plot(t1,-(t1.^2/2)+t1)
+hold on
+plot(t2,(t2.^2)-3.*t2+5/2)
+plot(t3,-(t3.^2)/2+2.*t3-3/2)
+grid on
+title('f(t)*g(t)=h(t)')
+%
+ax=gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+%
+axis([-.50 3.6 -.25 .75]);
+%
+% Si ejecutamos las siguientes instrucciones en el Command Window y el directorio de trabajo es el mismo donde se encuentra la función convconm tendrémos el siguiente resultado
+f= @(t) (-t+1).*(t>=0 & t<1) + (t-1).*(t>=1 & t<=2);
+g = @(t) heaviside(t)-heaviside(t-1);
+convconm(f,g)
+%
+%%
+% A continuación se muestra la convolución graficamente : 
+%
+% <<matlab_gif.GIF>>
+% 
+%% *PUNTO #2*
+% Realizar la convolución de:
+%%
+% 
+% <<C221.PNG>>
+% 
+%%
+%
+% <<C222.PNG>>
+% 
+% El resultado analítico siguiente se obtuvo previamente en el problema 3 del PR04:
+%%
+% 
+% <<C223.PNG>>
+% 
+%
+%   Codigo en Matlab
+%   x = @(t) (t).*(t>=0 & t<=1) + (1).*(t>1 & t<=2);
+%   h = @(t) (1).*(t>=1 & t<=3);
+%   convconm(x,h)
+%
+%%
+% 
+% <<gif2.GIF>>
+% 
+% 
+%
+%
+%
+%% *PUNTO #3*
+% De la PR06 inciso E) nos pide la autocorrelación de:
+%%%
+% $x(t)=u(t)-2u(t)-2u(t-3)+u(t-4)$
+%%
+% El resultado analitico obtenido es:
+%%
+% 
+% <<parametrizacionP06e.PNG>>
+% 
+%
+%%
+%
+clear all
+figure (1)
+x=@(t)heaviside(-t)-2*heaviside(-t-3)+heaviside(-t-4);
+subplot(3,1,1)
+fplot(x,[-5,1],'b')
+grid on
+title('x(t)')
+ax=gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+axis([-5 1 -1.5 2]);
+%
+h=@(t)heaviside(t)-2*heaviside(t-3)+heaviside(t-4);
+subplot(3,1,2)
+fplot(h,[-1,5],'r')
+grid on
+title('h(t)')
+ax=gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+axis([-1 5 -1.5 2]);
+%
+t1=-4:01:-3;
+t2=-3:01:-2;
+t3=-2:01:-1;
+t4=-1:01:0;
+t5=0:01:1;
+t6=1:01:3;
+t7=3:01:4;
+subplot(3,1,3)
+plot(t1,-t1-4);
+hold on
+plot(t2,t2+2);
+hold on
+plot(t3,t3+2);
+hold on
+plot(t4,3*(t4)+4);
+hold on
+plot(t5,-3*(t5)+4);
+hold on
+plot(t6,-t6+2);
+hold on
+plot(t7,t7-4);
+grid on
+title('x(t)*h(t)')
+%
+ax=gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+%%
+% Al ejecutar:  
+%
+  x=@(t)heaviside(-t)-2*heaviside(-t-3)+heaviside(-t-4);
+  h=@(t)heaviside(t)-2*heaviside(t-3)+heaviside(t-4);
+  convconm34(x,h)
+%%
+% OBTENEMOS:
+%%
+% 
+% <<matlabConE.gif>>
+% 
+%
+%% *PUNTO #4*
+% De la PR06 inciso F) nos pide la correlación de:
+%
+% $x_{0}=u(t)-2u(t-2)+u(t-4)$
+%
+% $x_{1}=u(t)-2u(t-3)+u(t-4)$
+%
+% El resultado analitico obtenido es:
+%%
+% 
+% <<parametrizacionP06f.PNG>>
+% 
+%
+%%
+%
+clear all
+figure (2)
+x=@(t)heaviside(-t)-2*heaviside(-t-3)+heaviside(-t-4);
+subplot(3,1,1)
+fplot(x,[-5,1],'b')
+grid on
+title('x(t)')
+ax=gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+axis([-5 1 -1.5 2]);
+%
+h=@(t)heaviside(t)-2*heaviside(t-2)+heaviside(t-4);
+subplot(3,1,2)
+fplot(h,[-1,5],'r')
+grid on
+title('h(t)')
+ax=gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+axis([-1 5 -1.5 2]);
+%
+t1=-4:01:-3;
+t2=-3:01:-2;
+t3=-2:01:-1;
+t4=-1:01:0;
+t5=0:01:1;
+t6=1:01:2;
+t7=2:01:4;
+subplot(3,1,3)
+plot(t1,-t1-4)
+hold on
+plot(t2,t2+2)
+hold on
+plot(t3,3*(t3)+6)
+hold on
+plot(t4,-t4+2);
+hold on
+plot(t5,-3*(t5)+2)
+hold on
+plot(t6,-t6)
+hold on
+plot(t7,t7-4)
+hold on
+title('x(t)*h(t)')
+ax=gca;
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+%%
+% Al ejecutar:
+% 
+ x=@(t)heaviside(-t)-2*heaviside(-t-3)+heaviside(-t-4);
+ h=@(t)heaviside(t)-2*heaviside(t-2)+heaviside(t-4);
+ convconm34(x,h)
+%% 
+% OBTENEMOS:
+%
+%%
+% 
+% <<matlabConF.GIF>>
+% 
+%
+%
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>
